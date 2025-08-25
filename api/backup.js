@@ -26,10 +26,11 @@ module.exports = async (req, res) => {
   // 4️⃣ POST -> push ke GitHub Gist
   if (req.method === "POST") {
     try {
-      const { url, data, token } = req.body;
+      const { url, data } = req.body;
+      const token = process.env.GITHUB_TOKEN; // ambil dari Vercel ENV
 
       if (!url || !data || !token) {
-        return res.status(400).json({ ok: false, error: "Missing url, data, or token" });
+        return res.status(400).json({ ok: false, error: "Missing url, data, or token not set in ENV" });
       }
 
       // Push ke Gist
